@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Article;
+use App\Http\Requests\ArticleRequest;
 use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
-    public function __construct()
+    /*public function __construct()
     {
         $this->middleware('auth');
         $this->middleware('isAdmin')->only(['create','edit','store','update','destroy']);
-    }
+    }*/
 
     /**
      * Display a listing of the resource.
@@ -21,7 +23,7 @@ class ArticleController extends Controller
     {
         $articles  = Article::all();
 
-        return view('articles.index', compact('articles'));
+        return view('article.index', compact('articles'));
     }
 
     /**
@@ -31,15 +33,15 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        $articles = new Article();
+        $article = new Article();
 
-        return view('article.create', compact('articles'));
+        return view('article.create', compact('article'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param ArticleRequest $request
      * @return \Illuminate\Http\Response
      */
     public function store(ArticleRequest $request)
@@ -52,7 +54,7 @@ class ArticleController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param Article $article
      * @return \Illuminate\Http\Response
      */
     public function show(Article $article)
@@ -63,7 +65,7 @@ class ArticleController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param Article $article
      * @return \Illuminate\Http\Response
      */
     public function edit(Article $article)
@@ -74,8 +76,8 @@ class ArticleController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param ArticleRequest $request
+     * @param Article $article
      * @return \Illuminate\Http\Response
      */
     public function update(ArticleRequest $request, Article $article)
@@ -90,6 +92,7 @@ class ArticleController extends Controller
      *
      * @param Article $article
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function destroy(Article $article)
     {
