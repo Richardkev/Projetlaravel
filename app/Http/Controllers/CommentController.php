@@ -5,9 +5,10 @@ namespace App\Http\Controllers;
 use App\Article;
 use App\Comment;
 use App\Http\Requests\ArticleRequest;
+use App\Http\Requests\CommentRequest;
 use Illuminate\Http\Request;
 
-class ArticleController extends Controller
+class CommentController extends Controller
 {
     /*public function __construct()
     {
@@ -22,9 +23,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $articles  = Article::all();
-
-        return view('article.index', compact('articles'));
+        return redirect()->route('articles.index');
     }
 
     /**
@@ -34,22 +33,18 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        $article = new Article();
-
-        return view('article.create', compact('article'));
+        return redirect()->route('articles.index');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param ArticleRequest $request
+     * @param CommentRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ArticleRequest $request)
+    public function store(CommentRequest $request)
     {
-        $datas = collect($request->except('_token', '_method'));
-
-        article::create($datas->toArray());
+        comment::create($request->except('_token'));
 
         return redirect()->route('articles.index');
     }
@@ -57,52 +52,49 @@ class ArticleController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Article $article
+     * @param Comment $comment
      * @return \Illuminate\Http\Response
      */
-    public function show(Article $article)
+    public function show(Comment $comment)
     {
-        $comments  = comment::where('article_id', $article->id)->get();
-        $item = new Comment();
-
-        return view('article.show', compact('article', 'comments','item'));
+        return view('comment.show', compact('comment'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Article $article
+     * @param Comment $article
      * @return \Illuminate\Http\Response
      */
-    public function edit(Article $article)
+    public function edit(Comment $article)
     {
-        return view('article.edit', compact('article'));
+        return view('comment.edit', compact('comment'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param ArticleRequest $request
-     * @param Article $article
+     * @param CommentRequest $request
+     * @param Comment $comment
      * @return \Illuminate\Http\Response
      */
-    public function update(ArticleRequest $request, Article $article)
+    public function update(CommentRequest $request, Comment $comment)
     {
-        $article->update($request->except('_token', '_method'));
+        $comment->update($request->except('_token', '_method'));
 
-        return redirect()->route('articles.show', [$article->id]);
+        return redirect()->route('Comment.show', [$comment->id]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param Article $article
+     * @param Comment $comment
      * @return \Illuminate\Http\Response
      * @throws \Exception
      */
-    public function destroy(Article $article)
+    public function destroy(Comment $comment)
     {
-        $article->delete();
+        $comment->delete();
 
         return redirect()->back();
     }
