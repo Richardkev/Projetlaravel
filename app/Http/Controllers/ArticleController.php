@@ -48,7 +48,7 @@ class ArticleController extends Controller
     {
         article::create($request->except('_token', '_method'));
 
-        return redirect()->route('article.index');
+        return redirect()->route('articles.index');
     }
 
     /**
@@ -84,7 +84,7 @@ class ArticleController extends Controller
     {
         $article->update($request->except('_token', '_method'));
 
-        return redirect()->route('article.show', [$article->id]);
+        return redirect()->route('articles.show', [$article->id]);
     }
 
     /**
