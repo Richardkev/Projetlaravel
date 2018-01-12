@@ -46,7 +46,7 @@ class ArticleController extends Controller
      */
     public function store(ArticleRequest $request)
     {
-        article::create($request->except('_token'));
+        article::create($request->except('_token', '_method'));
 
         return redirect()->route('article.index');
     }
