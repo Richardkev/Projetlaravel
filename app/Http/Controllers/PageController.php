@@ -9,8 +9,6 @@ class PageController extends Controller
 {
     protected function welcomePage()
     {
-        $articles  = Article::all();
-
-        return view('article.index', compact('articles'));
+        return redirect()->route('articles.index');
     }
 }
