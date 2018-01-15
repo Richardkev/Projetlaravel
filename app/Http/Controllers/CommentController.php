@@ -63,10 +63,10 @@ class CommentController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Comment $article
+     * @param Comment $comment
      * @return \Illuminate\Http\Response
      */
-    public function edit(Comment $article)
+    public function edit(Comment $comment)
     {
         return view('comment.edit', compact('comment'));
     }
@@ -82,7 +82,7 @@ class CommentController extends Controller
     {
         $comment->update($request->except('_token', '_method'));
 
-        return redirect()->route('Comment.show', [$comment->id]);
+        return redirect()->route('articles.show', [$comment->article_id]);
     }
 
     /**
