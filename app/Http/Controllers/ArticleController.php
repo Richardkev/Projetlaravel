@@ -12,11 +12,10 @@ use Illuminate\Support\Facades\Storage;
 
 class ArticleController extends Controller
 {
-    /*public function __construct()
+    public function __construct()
     {
-        $this->middleware('auth');
-        $this->middleware('isAdmin')->only(['create','edit','store','update','destroy']);
-    }*/
+        $this->middleware('auth')->only(['create','edit','store','update','destroy']);
+    }
 
     /**
      * Display a listing of the resource.
