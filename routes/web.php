@@ -21,3 +21,5 @@ Route::resource('/articles', 'ArticleController');
 
 Route::resource('/comments', 'CommentController');
 
+Route::resource('/like', 'LikeController');
+

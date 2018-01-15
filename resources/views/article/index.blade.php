@@ -13,4 +13,11 @@
             @endforeach
         </div>
     </div>
+
+    <form action="{{ route('like.store') }}" method="post">
+        {{ csrf_field() }}
+        {{ method_field('POST') }}
+        <input type="hidden" name="article_id" value="1">
+        <input type="submit" class="btn btn-primary" value="like">
+    </form>
 @endsection
