@@ -16,5 +16,9 @@
                   class="form-control" placeholder="Contenue">{{old('content', $item->content)}}</textarea>
     </div>
 
+    <div class="form-group">
+        <input type="file" id="img" name="img" class="form-control" placeholder="Image">
+    </div>
+
     <button class="btn btn-primary btn-block">Envoyer</button>
 </form>

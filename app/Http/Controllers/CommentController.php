@@ -46,7 +46,7 @@ class CommentController extends Controller
     {
         comment::create($request->except('_token'));
 
-        return redirect()->route('articles.index');
+        return redirect()->back();
     }
 
     /**
@@ -57,7 +57,7 @@ class CommentController extends Controller
      */
     public function show(Comment $comment)
     {
-        return view('comment.show', compact('comment'));
+        return redirect()->route('articles.show', [$comment->article_id]);
     }
 
     /**

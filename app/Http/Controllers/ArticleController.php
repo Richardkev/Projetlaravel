@@ -6,6 +6,8 @@ use App\Article;
 use App\Comment;
 use App\Http\Requests\ArticleRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Storage;
 
 class ArticleController extends Controller
 {
@@ -102,8 +104,12 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
+        $comments  = comment::where('article_id', $article->id)->get();
+        foreach ($comments as $comment){
+            $comment->delete();
+        }
         $article->delete();
 
-        return redirect()->back();
+        return redirect()->route('articles.index');
     }
 }

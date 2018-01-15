@@ -9,12 +9,26 @@
                 <div class="text-center">{{ $article->content }}</div>
                 <span>{{ $article->created_at }}</span>
                 <span class="pull-right">{{ $article->updated_at }}</span>
+                <a class="btn btn-success" href="{{ route("articles.edit", [$article->id]) }}">Modif</a>
+                <a class="btn btn-danger" href="#" onclick="event.preventDefault();
+                        document.getElementById('form-{!! $article->id !!}').submit();">Sup</a>
+                <form id="form-{{$article->id}}" method="POST" action="{{ route('articles.destroy', [$article->id]) }}">
+                    {{ csrf_field() }}
+                    {{ method_field('DELETE') }}
+                </form>
             </div>
 
             @foreach($comments as $comment)
-                <div class="container bg-success">
+                <div class="container bg-success" style="margin-top: 20px">
                     <p>{{ $comment->content }}</p>
-                    <span>{{ $comment->updated_at }}</span>
+                    <span class="pull-right">{{ $comment->updated_at }}</span>
+                    <a class="btn btn-success" href="{{ route("comments.edit", [$comment->id]) }}">Modif</a>
+                    <a class="btn btn-danger" href="#" onclick="event.preventDefault();
+                            document.getElementById('form-{!! $comment->id !!}').submit();">Sup</a>
+                    <form id="form-{{$comment->id}}" method="POST" action="{{ route('comments.destroy', [$comment->id]) }}">
+                        {{ csrf_field() }}
+                        {{ method_field('DELETE') }}
+                    </form>
                 </div>
             @endforeach
 
