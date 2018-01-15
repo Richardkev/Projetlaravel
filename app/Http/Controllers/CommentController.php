@@ -7,15 +7,10 @@ use App\Comment;
 use App\Http\Requests\ArticleRequest;
 use App\Http\Requests\CommentRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
-    /*public function __construct()
-    {
-        $this->middleware('auth');
-        $this->middleware('isAdmin')->only(['create','edit','store','update','destroy']);
-    }*/
-
     /**
      * Display a listing of the resource.
      *
@@ -44,7 +39,13 @@ class CommentController extends Controller
      */
     public function store(CommentRequest $request)
     {
-        comment::create($request->except('_token'));
+        $datas = collect($request->except('_token'));
+
+        $userId = Auth::user()->id;
+
+        $datas = $datas->put('user_id', $userId);
+
+        Comment::create($datas->toArray());
 
         return redirect()->back();
     }

@@ -19,5 +19,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('/articles', 'ArticleController');
 
+Route::resource('/articles/create', 'ArticleController')->middleware('auth');
+
 Route::resource('/comments', 'CommentController');
 

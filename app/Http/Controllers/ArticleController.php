@@ -6,6 +6,7 @@ use App\Article;
 use App\Comment;
 use App\Http\Requests\ArticleRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Storage;
 
@@ -50,6 +51,10 @@ class ArticleController extends Controller
     public function store(ArticleRequest $request)
     {
         $datas = collect($request->except('_token', '_method'));
+
+        $userId = Auth::user()->id;
+
+        $datas = $datas->put('user_id', $userId);
 
         article::create($datas->toArray());
 
