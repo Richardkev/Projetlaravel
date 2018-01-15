@@ -9,7 +9,7 @@
                 <div class="text-center">{{ $article->content }}</div>
                 <span>{{ $article->created_at }}</span>
                 <span class="pull-right">{{ $article->updated_at }}</span>
-                @if(\Illuminate\Support\Facades\Auth::user()->id === $article->user_id)
+                @if((\Illuminate\Support\Facades\Auth::user()->id === $article->user_id) || \Illuminate\Support\Facades\Auth::user()->isAdmin())
                     <a class="btn btn-success" href="{{ route("articles.edit", [$article->id]) }}">Modif</a>
                     <a class="btn btn-danger" href="#" onclick="event.preventDefault();
                             document.getElementById('form-{!! $article->id !!}').submit();">Sup</a>
@@ -44,7 +44,7 @@
                 <div class="container bg-success" style="margin-top: 20px">
                     <p>{{ $comment->content }}</p>
                     <span class="pull-right">{{ $comment->updated_at }}</span>
-                    @if(\Illuminate\Support\Facades\Auth::user()->id === $comment->user_id)
+                    @if((\Illuminate\Support\Facades\Auth::user()->id === $article->user_id) || \Illuminate\Support\Facades\Auth::user()->isAdmin())
                         <a class="btn btn-success" href="{{ route("comments.edit", [$comment->id]) }}">Modif</a>
                         <a class="btn btn-danger" href="#" onclick="event.preventDefault();
                                 document.getElementById('form-{!! $comment->id !!}').submit();">Sup</a>
