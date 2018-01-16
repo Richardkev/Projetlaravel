@@ -9,17 +9,17 @@
                 <div class="text-center">{{ $article->content }}</div>
                 <span>{{ $article->created_at }}</span>
                 <span class="pull-right">{{ $article->updated_at }}</span>
-                @if((\Illuminate\Support\Facades\Auth::user()->id === $article->user_id) || \Illuminate\Support\Facades\Auth::user()->isAdmin())
-                    <a class="btn btn-success" href="{{ route("articles.edit", [$article->id]) }}">Modif</a>
-                    <a class="btn btn-danger" href="#" onclick="event.preventDefault();
-                            document.getElementById('form-{!! $article->id !!}').submit();">Sup</a>
-                    <form id="form-{{$article->id}}" method="POST" action="{{ route('articles.destroy', [$article->id]) }}">
-                        {{ csrf_field() }}
-                        {{ method_field('DELETE') }}
-                    </form>
-                @endif
                 @guest
                 @else
+                    @if((\Illuminate\Support\Facades\Auth::user()->id === $article->user_id) || \Illuminate\Support\Facades\Auth::user()->isAdmin())
+                        <a class="btn btn-success" href="{{ route("articles.edit", [$article->id]) }}">Modif</a>
+                        <a class="btn btn-danger" href="#" onclick="event.preventDefault();
+                                document.getElementById('form-{!! $article->id !!}').submit();">Sup</a>
+                        <form id="form-{{$article->id}}" method="POST" action="{{ route('articles.destroy', [$article->id]) }}">
+                            {{ csrf_field() }}
+                            {{ method_field('DELETE') }}
+                        </form>
+                    @endif
                     @if($likes===null || $likes->isLiked($article->id) === false)
                         <form action="{{ $likes!=null ? route('like.update', [$likes->id]) : route('like.store') }}" method="post">
                             {{ csrf_field() }}
