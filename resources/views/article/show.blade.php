@@ -18,6 +18,24 @@
                         {{ method_field('DELETE') }}
                     </form>
                 @endif
+                @guest
+                @else
+                    @if($likes===null || $likes->isLiked($article->id) === false)
+                        <form action="{{ $likes!=null ? route('like.update', [$likes->id]) : route('like.store') }}" method="post">
+                            {{ csrf_field() }}
+                            {{ method_field($likes!=null ? 'PUT' : 'POST') }}
+                            <input type="hidden" name="article_id" value="{{ $article->id }}">
+                            <input type="submit" class="btn btn-primary" value="like">
+                        </form>
+                    @else
+                        <form action="{{ route('like.destroy', [$likes->id])}}" method="post">
+                            {{ csrf_field() }}
+                            {{ method_field('DELETE') }}
+                            <input type="hidden" name="article_id" value="{{ $article->id }}">
+                            <input type="submit" class="btn btn-danger" value="unlike">
+                        </form>
+                    @endif
+                @endguest
             </div>
 
             @guest

@@ -16,17 +16,17 @@ class LikeController extends Controller
      */
     public function index()
     {
-        //
+        return redirect()->back();
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return void
+     * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        //
+        return redirect()->back();
     }
 
     /**
@@ -48,29 +48,27 @@ class LikeController extends Controller
 
         like::create($datas->toArray());
 
-        return redirect()->to('/');
+        return redirect()->back();
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int $id
-     * @return void
+     * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
+        return redirect()->back();
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit()
     {
-        //
+        return redirect()->back();
     }
 
     /**
@@ -82,7 +80,14 @@ class LikeController extends Controller
      */
     public function update(LikeRequest $request, Like $like)
     {
-        $like->update($request->except('_token', '_method'));
+        $datas = collect($request->except('_token', '_method','article_id'));
+
+        $table = $request->only('article_id');
+        $articlesId = $like->articles_id.','.$table['article_id'];
+
+        $datas = $datas->put('articles_id', $articlesId);
+
+        $like->update($datas->toArray());
 
         return redirect()->back();
     }
@@ -90,11 +95,26 @@ class LikeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param LikeRequest $request
+     * @param Like $like
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
-    public function destroy($id)
+    public function destroy(LikeRequest $request, Like $like)
     {
-        //
+        $datas = collect($request->except('_token', '_method','article_id'));
+
+        $table = $request->only('article_id');
+        $articlesId = $like->unlike($table['article_id']);
+
+        $datas = $datas->put('articles_id', $articlesId);
+
+        $like->update($datas->toArray());
+
+        if ($like->articles_id === ',' || $like->articles_id === null){
+            $like->delete();
+        }
+
+        return redirect()->back();
     }
 }

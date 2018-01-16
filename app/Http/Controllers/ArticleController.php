@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Article;
 use App\Comment;
 use App\Http\Requests\ArticleRequest;
+use App\Like;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
@@ -70,8 +71,14 @@ class ArticleController extends Controller
     {
         $comments  = comment::where('article_id', $article->id)->get();
         $item = new Comment();
+        if (Auth::check() && Like::where('user_id', Auth::user()->id)->first()!=null){
+            $likes = Like::where('user_id', Auth::user()->id)->first();
+        }
+        else{
+            $likes = null;
+        }
 
-        return view('article.show', compact('article', 'comments','item'));
+        return view('article.show', compact('article', 'comments','item','likes'));
     }
 
     /**
