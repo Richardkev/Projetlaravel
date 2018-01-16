@@ -119,6 +119,20 @@ class ArticleController extends Controller
         foreach ($comments as $comment){
             $comment->delete();
         }
+        $likes = like::all();
+        foreach ($likes as $like){
+            if ($like->isLiked($article->id) === true){
+                $articlesId = $like->unlike($article->id);
+                $datas = collect();
+                $datas = $datas->put('articles_id', $articlesId);
+
+                $like->update($datas->toArray());
+
+                if ($like->articles_id === ',' || $like->articles_id === null){
+                    $like->delete();
+                }
+            }
+        }
         $article->delete();
 
         return redirect()->route('articles.index');

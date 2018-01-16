@@ -64,11 +64,12 @@ class CommentController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
+     * @param Comment $comment
      * @return \Illuminate\Http\Response
      */
-    public function edit()
+    public function edit(Comment $comment)
     {
-        return redirect()->back();
+        return view('comment.edit', compact('comment'));
     }
 
     /**

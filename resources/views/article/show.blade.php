@@ -62,15 +62,18 @@
                 <div class="container bg-success" style="margin-top: 20px">
                     <p>{{ $comment->content }}</p>
                     <span class="pull-right">{{ $comment->updated_at }}</span>
-                    @if((\Illuminate\Support\Facades\Auth::user()->id === $article->user_id) || \Illuminate\Support\Facades\Auth::user()->isAdmin())
-                        <a class="btn btn-success" href="{{ route("comments.edit", [$comment->id]) }}">Modif</a>
-                        <a class="btn btn-danger" href="#" onclick="event.preventDefault();
-                                document.getElementById('form-{!! $comment->id !!}').submit();">Sup</a>
-                        <form id="form-{{$comment->id}}" method="POST" action="{{ route('comments.destroy', [$comment->id]) }}">
-                            {{ csrf_field() }}
-                            {{ method_field('DELETE') }}
-                        </form>
-                    @endif
+                    @guest
+                    @else
+                        @if((\Illuminate\Support\Facades\Auth::user()->id === $comment->user_id) || \Illuminate\Support\Facades\Auth::user()->isAdmin())
+                            <a class="btn btn-success" href="{{ route("comments.edit", [$comment->id]) }}">Modif</a>
+                            <a class="btn btn-danger" href="#" onclick="event.preventDefault();
+                                    document.getElementById('form-{!! $comment->id !!}').submit();">Sup</a>
+                            <form id="form-{{$comment->id}}" method="POST" action="{{ route('comments.destroy', [$comment->id]) }}">
+                                {{ csrf_field() }}
+                                {{ method_field('DELETE') }}
+                            </form>
+                        @endif
+                    @endguest
                 </div>
             @endforeach
 
