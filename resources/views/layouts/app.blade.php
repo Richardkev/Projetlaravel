@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>Blog</title>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -29,7 +29,7 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
+                        Blog
                     </a>
                 </div>
 
@@ -66,6 +66,11 @@
                                     <li class="bg-info">
                                         <a href="{{ route('articles.create') }}">Ecrire un article</a>
                                     </li>
+                                    @if(\Illuminate\Support\Facades\Auth::user()->isAdmin())
+                                    <li class="bg-info">
+                                        <a href="{{ route('admin') }}">Admin</a>
+                                    </li>
+                                    @endif
                                 </ul>
                             </li>
                         @endguest

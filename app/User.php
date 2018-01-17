@@ -30,4 +30,10 @@ class User extends Authenticatable
     public function isAdmin(){
         return (bool) $this->is_admin;
     }
+
+    public function who($id){
+        $user = User::find($id);
+
+        return $user->name;
+    }
 }

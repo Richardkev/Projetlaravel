@@ -23,3 +23,11 @@ Route::resource('/comments', 'CommentController');
 
 Route::resource('/like', 'LikeController');
 
+Route::get('/admin', 'AdminController@index')->name('admin');
+
+Route::get('/admin/users', 'AdminController@users')->name('admin.users');
+
+Route::get('/admin/articles', 'AdminController@articles')->name('admin.articles');
+
+Route::resource('/users', 'UserController');
+
