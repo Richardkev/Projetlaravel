@@ -9,6 +9,7 @@
                 <th>#</th>
                 <th>Nom</th>
                 <th>E-mail</th>
+                <th>Role</th>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -18,13 +19,26 @@
                     <th scope="row">{{ $user->id }}</th>
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
+                    <td>{{ $user->is_admin ? 'admin' : 'user' }}</td>
                     <td>
-                        <a class="btn btn-danger" href="#" onclick="event.preventDefault();
-                                document.getElementById('form-{!! $user->id !!}').submit();">Sup</a>
+                        @if(\Illuminate\Support\Facades\Auth::user()->id != $user->id)
+                        <div class="btn-group">
+                            <a class="btn btn-primary" href="#" onclick="event.preventDefault();
+                                    document.getElementById('form_{!! $user->id !!}').submit();">{{ $user->is_admin ? 'to user' : 'to admin' }}</a>
+                            <a class="btn btn-danger" href="#" onclick="event.preventDefault();
+                                    document.getElementById('form-{!! $user->id !!}').submit();">Sup</a>
+                        </div>
+                        <form id="form_{{$user->id}}" method="POST" action="{{ route('users.update', [$user->id]) }}">
+                            {{ csrf_field() }}
+                            {{ method_field('PUT') }}
+                        </form>
                         <form id="form-{{$user->id}}" method="POST" action="{{ route('users.destroy', [$user->id]) }}">
                             {{ csrf_field() }}
                             {{ method_field('DELETE') }}
                         </form>
+                        @else
+                            Vous ne pouvez pas vous auto-modifier
+                        @endif
                     </td>
                 </tr>
             @endforeach

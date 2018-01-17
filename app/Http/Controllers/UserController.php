@@ -69,10 +69,21 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
+     * @param User $user
      * @return \Illuminate\Http\Response
      */
-    public function update()
+    public function update(User $user)
     {
+        $datas = collect();
+
+        if ($user->is_admin == true){
+            $bool = false;
+        }
+        else{
+            $bool = true;
+        }
+        $datas = $datas->put('is_admin', $bool);
+        $user->update($datas->toArray());
         return redirect()->back();
     }
 
