@@ -1,9 +1,82 @@
-
 // Fonts
 @import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
-
 // Variables
 @import "variables";
-
 // Bootstrap
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
+
+body {
+  .articles-link {
+    text-decoration: none;
+    color: $color2;
+    .articles {
+      padding: 10px;
+      margin: 20px auto;
+      background: $color1;
+      border-radius: 10px;
+      box-shadow: 5px 10px 8px $shadow-color;
+    }
+  }
+  .article {
+    padding: 10px;
+    background: $color1;
+    border-radius: 10px;
+    margin: 20px auto;
+    color: $color2;
+    box-shadow: 5px 10px 8px $shadow-color;
+    h1{
+      margin-bottom: 50px;
+    }
+    .container ul{
+      width: 20%;
+      margin: 40px auto 0;
+    }
+    .btn-article{
+      margin-top: 20px;
+    }
+  }
+  .comment {
+    padding: 10px;
+    background: $color1;
+    border-radius: 10px;
+    margin: 20px auto;
+    color: $color2;
+    box-shadow: 5px 10px 8px $shadow-color;
+    .btn-comment{
+      margin-top: 10px;
+    }
+  }
+  .comments{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    box-shadow: 5px 10px 8px $shadow-color;
+  }
+  .panel{
+    border-radius: 10px;
+    box-shadow: 5px 10px 8px $shadow-color;
+    .btn-block{
+      margin-bottom: 20px;
+    }
+  }
+  .admin-link {
+    text-decoration: none;
+    color: $color2;
+    .admin-panel {
+      background: $color1;
+      border-radius: 10px;
+      box-shadow: 5px 10px 8px $shadow-color;
+      margin-top: 15%;
+      padding: 8vh 0;
+      h3{
+        font-size: 2vw;
+      }
+    }
+  }
+  .bs-example{
+    background: $color1;
+    border-radius: 10px;
+    box-shadow: 5px 10px 8px $shadow-color;
+  }
+}

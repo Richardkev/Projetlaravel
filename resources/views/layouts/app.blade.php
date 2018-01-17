@@ -63,11 +63,11 @@
                                             {{ csrf_field() }}
                                         </form>
                                     </li>
-                                    <li class="bg-info">
+                                    <li>
                                         <a href="{{ route('articles.create') }}">Ecrire un article</a>
                                     </li>
                                     @if(\Illuminate\Support\Facades\Auth::user()->isAdmin())
-                                    <li class="bg-info">
+                                    <li>
                                         <a href="{{ route('admin') }}">Admin</a>
                                     </li>
                                     @endif

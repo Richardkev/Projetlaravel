@@ -17,13 +17,15 @@
                 <tr>
                     <th scope="row">{{ $article->id }}</th>
                     <td>{{ $article->title }}</td>
-                    <td>{{ \Illuminate\Support\Facades\Auth::user()->who($article->user_id) }}</td>
+                    <td>{{ $article->who($article->user_id) }}</td>
                     <td>
+                        <div class="btn-group">
                         <a class="btn btn-primary" href="{{ route("articles.show", [$article->id]) }}">Voir</a>
                         <a class="btn btn-success" href="{{ route("articles.edit", [$article->id]) }}">Modif</a>
                         <a class="btn btn-danger" href="#" onclick="event.preventDefault();
                                 document.getElementById('form-{!! $article->id !!}').submit();">Sup</a>
-                        <form id="form-{{$article->id}}" method="POST" action="{{ route('articles.destroy', [$article->id]) }}">
+                        </div>
+                        <form class="pull-left" id="form-{{$article->id}}" method="POST" action="{{ route('articles.destroy', [$article->id]) }}">
                             {{ csrf_field() }}
                             {{ method_field('DELETE') }}
                         </form>

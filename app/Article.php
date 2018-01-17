@@ -13,4 +13,10 @@ class Article extends Model
         'created_at',
         'updated_at'
     ];
+
+    public function who($id){
+        $user = User::find($id);
+
+        return $user->name;
+    }
 }
